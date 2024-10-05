@@ -1,58 +1,75 @@
-require 'httparty'
-require 'json'
-require 'zlib'
-require 'stringio'
-require_relative 'utils'
-
 module NbaApi
   module Boxscore
-    BASE_URL = 'https://stats.nba.com/stats'
-
     class << self
-      def traditional(game_id)
-        get_boxscore('boxscoretraditionalv3', game_id)
+      def traditional(options = {})
+        endpoint = 'boxscoretraditionalv3'
+        make_request(endpoint, options)
       end
       
-      def advanced(game_id)
-        get_boxscore('boxscoreadvancedv3', game_id)
+      def advanced(options = {})
+        endpoint = 'boxscoreadvancedv3'
+        make_request(endpoint, options)
       end
 
-      def misc(game_id)
-        get_boxscore('boxscoremiscv3', game_id)
+      def misc(options = {})
+        endpoint = 'boxscoremiscv3'
+        make_request(endpoint, options)
       end
 
-      def scoring(game_id)
-        get_boxscore('boxscorescoringv3', game_id)
+      def scoring(options = {})
+        endpoint = 'boxscorescoringv3'
+        make_request(endpoint, options)
       end
 
-      def usage(game_id)
-        get_boxscore('boxscoreusagev3', game_id)
+      def usage(options = {})
+        endpoint = 'boxscoreusagev3'
+        make_request(endpoint, options)
       end
       
-      def four_factors(game_id)
-        get_boxscore('boxscorefourfactorsv3', game_id)
+      def four_factors(options = {})
+        endpoint = 'boxscorefourfactorsv3'
+        make_request(endpoint, options)
       end
 
-      def player_track(game_id)
-        get_boxscore('boxscoreplayertrackv3', game_id)
+      def player_track(options = {})
+        endpoint = 'boxscoreplayertrackv3'
+        make_request(endpoint, options)
       end
 
-      def hustle(game_id)
-        get_boxscore('boxscorehustlev2', game_id)
+      def hustle(options = {})
+        endpoint = 'boxscorehustlev2'
+        make_request(endpoint, options)
       end
 
-      def defense(game_id)
-        get_boxscore('boxscoredefensivev2', game_id)
+      def defense(options = {})
+        endpoint = 'boxscoredefensivev2'
+        make_request(endpoint, options)
       end
 
-      def matchups(game_id)
-        get_boxscore('boxscorematchupsv3', game_id)
+      def matchups(options = {})
+        endpoint = 'boxscorematchupsv3'
+        make_request(endpoint, options)
       end
 
       private
 
-      def get_boxscore(endpoint, game_id)
-        Utils.make_request(endpoint, { GameID: game_id })
+      def make_request(endpoint, params)
+        params = build_params(params)
+        response = Utils.make_request(endpoint, params)
+        ResponseHandler.call(endpoint, response)
+      end
+
+      def build_params(options)
+        raise 'Game ID is required' if options[:game_id].nil?
+
+        params = {
+          GameID: options[:game_id],
+          StartPeriod: options[:quarter] || 1,
+          EndPeriod: options[:quarter] || 1,
+          StartRange: 0,
+          EndRange: 0,
+          RangeType: options[:quarter] ? 1 : 0
+        }
       end
     end
   end

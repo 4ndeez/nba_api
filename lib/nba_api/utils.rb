@@ -22,6 +22,7 @@ module NbaApi
         else
           if retries < MAX_RETRIES
             puts "Invalid response, retrying in #{timeout} seconds... (Attempt #{retries + 1}/#{MAX_RETRIES})"
+            puts "Response: #{decompress_response(response)}"
             sleep(timeout)
             make_request(endpoint, params, retries + 1, timeout + TIMEOUT_INCREMENT)
           else
@@ -30,7 +31,7 @@ module NbaApi
         end
       rescue => e
         puts "Error: #{e.message}"
-        puts e.backtrace
+        puts e.backtrace # remove before prod
         if retries < MAX_RETRIES
           puts "Error occurred, retrying in #{timeout} seconds... (Attempt #{retries + 1}/#{MAX_RETRIES})"
           sleep(timeout)
