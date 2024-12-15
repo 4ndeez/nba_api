@@ -8,6 +8,7 @@ require_relative "nba_api/resource"
 
 # League API
 require_relative "nba_api/league/params"
+require_relative "nba_api/league/schedule"
 require_relative "nba_api/league/standings"
 
 # Boxscore API
@@ -27,9 +28,12 @@ require_relative "nba_api/boxscore/usage"
 # Game API
 require_relative "nba_api/game/params"
 require_relative "nba_api/game/play_by_play"
+require_relative "nba_api/game/summary"
 
 # Team API
 require_relative "nba_api/team/params"
+require_relative "nba_api/team/details"
+require_relative "nba_api/team/gamelogs"
 require_relative "nba_api/team/leaders"
 require_relative "nba_api/team/roster"
 
