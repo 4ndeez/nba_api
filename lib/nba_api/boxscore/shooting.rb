@@ -40,15 +40,18 @@ module NbaApi
         end
 
         def attributes(entry)
-          { type: entry[:sub_type],
-            value: entry[:shot_value],
-            result: entry[:shot_result],
-            distance: entry[:shot_distance],
-            shot_value: entry[:shot_value],
+          {
+            action_id: entry[:action_id],
             action_type: entry[:action_type],
+            type: entry[:sub_type],
+            shot_result: entry[:shot_result],
+            shot_value: entry[:shot_value],
+            shot_distance: entry[:shot_distance],
+            points_total: entry[:points_total],
+            period: entry[:period],
             x: entry[:x_legacy],
-            y: entry[:y_legacy],
-            period: entry[:period] }
+            y: entry[:y_legacy]
+          }
         end
       end
     end

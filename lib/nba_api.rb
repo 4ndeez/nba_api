@@ -27,8 +27,9 @@ require_relative "nba_api/boxscore/usage"
 
 # Game API
 require_relative "nba_api/game/params"
+require_relative "nba_api/game/details"
 require_relative "nba_api/game/play_by_play"
-require_relative "nba_api/game/summary"
+require_relative "nba_api/game/play_by_play_win_probability"
 
 # Team API
 require_relative "nba_api/team/params"
