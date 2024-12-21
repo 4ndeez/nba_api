@@ -2,11 +2,16 @@
 
 module NbaApi
   module Constants
-    RESULT_SETS_ENDPOINTS = %w[leaguegamefinder leaguedashplayerstats leaguedashplayerptshot winprobabilitypbp].freeze
+    RESULT_SETS_ENDPOINTS = %w[leaguegamefinder leaguedashplayerstats leaguedashplayerptshot winprobabilitypbp
+                               leaguedashplayerstats commonteamroster commonplayerinfo franchiseleaders
+                               franchisehistory leaguedashteamstats leaguestandingsv3 teamgamelogs teamdetails
+                               winprobabilitypbp].freeze
     RESULT_AS_ENDPOINTS = %w[boxscoresummaryv3 boxscoresummaryv2 boxscoretraditionalv3 boxscoreadvancedv3 boxscoremiscv3
                              boxscorescoringv3 boxscoreusagev3 boxscorefourfactorsv3 boxscoreplayertrackv3
-                             boxscorehustlev2 boxscoredefensivev2 boxscorematchupsv3].freeze
+                             boxscorehustlev2 boxscoredefensivev2 boxscorematchupsv3 scheduleleaguev2].freeze
     SHOT_LOCATIONS_ENDPOINT = %w[leaguedashplayershotlocations].freeze
+    PBP_ENDPOINT = %w[playbyplayv3].freeze
+    STATIC_ENDPOINT = "https://data.nba.com"
 
     UNVERSION = { "boxscoresummaryv3" => :box_score_summary,
                   "boxscoresummaryv2" => :box_score_summary,
@@ -19,7 +24,11 @@ module NbaApi
                   "boxscoreplayertrackv3" => :box_score_player_track,
                   "boxscorehustlev2" => :box_score_hustle,
                   "boxscoredefensivev2" => :box_score_defensive,
-                  "boxscorematchupsv3" => :box_score_matchups }.freeze
+                  "boxscorematchupsv3" => :box_score_matchups,
+                  "scheduleleaguev2" => :league_schedule
+    }.freeze
+
+    MAX_QUARTERS = 14
 
     TEAMS = [
       { abbreviation: "ATL", id: 1_610_612_737, name: "Atlanta Hawks" },

@@ -21,6 +21,10 @@ module NbaApi
       end
     end
 
+    def get_static(endpoint, params = {})
+      HTTParty.get(endpoint, query: params)
+    end
+
     private
 
     def url(endpoint)

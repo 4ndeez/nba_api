@@ -8,9 +8,14 @@ module NbaApi
     extend Request
     extend Response
 
-    def get(endpoint, params)
+    def get(endpoint, params = {})
       response = Request.get(endpoint, params)
       Formatter.prettify(endpoint, response)
+    end
+
+    def get_static(endpoint, params = {})
+      response = Request.get_static(endpoint, params)
+      Formatter.prettify_static(endpoint, response)
     end
   end
 end

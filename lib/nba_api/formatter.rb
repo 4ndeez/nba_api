@@ -13,19 +13,36 @@ module NbaApi
           result_as_endpoint_process(endpoint, response)
         when *SHOT_LOCATIONS_ENDPOINT
           shot_locations_process(response)
+        when *PBP_ENDPOINT
+          pbp_process(response)
+        when endpoint.include?(STATIC_ENDPOINT)
+          static_process(response)
         else
           raise ArgumentError, "Unsupported endpoint: #{endpoint}"
         end
       end
 
+      def prettify_static(_endpoint, response)
+        static_process(response)
+      end
+
       private
 
       def results_sets_process(response)
-        result_sets = response.dig(:result_sets, 0)
-        headers = result_sets[:headers].map { |header| header.downcase.to_sym }
-        rows = result_sets[:row_set]
-        result = rows.map { |row| headers.zip(row).to_h }
-        unwrap(result)
+        result = {}
+        response[:result_sets].each do |set|
+          key = set[:name].underscore.to_sym
+          headers = set[:headers].map(&:underscore).map(&:to_sym)
+          rows = set[:row_set].map { |row| headers.zip(row).to_h }
+          result[key] = rows.size == 1 ? rows.first : rows
+        end
+        result
+
+        # result_sets = response.dig(:result_sets, 0)
+        # headers = result_sets[:headers].map { |header| header.downcase.to_sym }
+        # rows = result_sets[:row_set]
+        # result = rows.map { |row| headers.zip(row).to_h }
+        # unwrap(result)
       end
 
       def result_as_endpoint_process(endpoint, response)
@@ -56,6 +73,21 @@ module NbaApi
         end
 
         unwrap(result)
+      end
+
+      def pbp_process(response)
+        result = response.dig(:game, :actions)
+        unwrap(result)
+      end
+
+      def static_process(response)
+        response["lscd"].each do |month_data|
+          month_data["mscd"]["g"].each do |game|
+            game.delete("bd")
+          end
+        end
+
+        unwrap(response)
       end
 
       def unwrap(response)

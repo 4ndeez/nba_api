@@ -3,6 +3,8 @@
 module NbaApi
   module Game
     module Params
+      include Constants
+
       REQUIRED_PARAMS = [:game_id].freeze
 
       private
@@ -13,7 +15,7 @@ module NbaApi
         {
           GameID: options[:game_id],
           StartPeriod: options[:start_period] || 1,
-          EndPeriod: options[:end_period] || 4
+          EndPeriod: options[:end_period] || MAX_QUARTERS
         }
       end
 
