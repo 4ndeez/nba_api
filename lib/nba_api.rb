@@ -3,6 +3,7 @@
 require_relative "nba_api/version"
 require_relative "nba_api/constants"
 require_relative "nba_api/utils"
+require_relative "nba_api/response_handler"
 require_relative "nba_api/formatter"
 require_relative "nba_api/resource"
 
@@ -56,6 +57,7 @@ require_relative "nba_api/stats/teams/history"
 
 # Stats/Players API
 require_relative "nba_api/stats/players/params"
+require_relative "nba_api/stats/players/possession"
 require_relative "nba_api/stats/players/traditional"
 
 module NbaApi
