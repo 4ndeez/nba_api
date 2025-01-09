@@ -3,6 +3,7 @@
 module NbaApi
   class Formatter
     extend Constants
+    extend ResponseHandler
 
     class << self
       def prettify(endpoint, response)
@@ -11,6 +12,8 @@ module NbaApi
           results_sets_process(response)
         when *RESULT_AS_ENDPOINTS
           result_as_endpoint_process(endpoint, response)
+        when *BOXSCORE_STATS_ENDPOINTS
+          boxscore_process(endpoint, response)
         when *SHOT_LOCATIONS_ENDPOINT
           shot_locations_process(response)
         when *PBP_ENDPOINT
@@ -37,12 +40,6 @@ module NbaApi
           result[key] = rows.size == 1 ? rows.first : rows
         end
         result
-
-        # result_sets = response.dig(:result_sets, 0)
-        # headers = result_sets[:headers].map { |header| header.downcase.to_sym }
-        # rows = result_sets[:row_set]
-        # result = rows.map { |row| headers.zip(row).to_h }
-        # unwrap(result)
       end
 
       def result_as_endpoint_process(endpoint, response)
@@ -73,6 +70,11 @@ module NbaApi
         end
 
         unwrap(result)
+      end
+
+      def boxscore_process(endpoint, response)
+        result = result_as_endpoint_process(endpoint, response)
+        check_sufficiency(result)
       end
 
       def pbp_process(response)
