@@ -4,9 +4,19 @@ module NbaApi
   module Stats
     module Players
       module Params
+        extend Resource
         REQUIRED_PARAMS = %i[season].freeze
 
         private
+
+        def get(endpoint, params)
+          response = super
+          unwrap_response(response)
+        end
+
+        def unwrap_response(response)
+          response[:league_dash_pt_stats]
+        end
 
         def build_params(options)
           verify_params(options)

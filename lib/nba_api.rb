@@ -57,7 +57,16 @@ require_relative "nba_api/stats/teams/history"
 
 # Stats/Players API
 require_relative "nba_api/stats/players/params"
-require_relative "nba_api/stats/players/possession"
+require_relative "nba_api/stats/players/catch_shoot"
+require_relative "nba_api/stats/players/drives"
+require_relative "nba_api/stats/players/elbow_touches"
+require_relative "nba_api/stats/players/paint_touches"
+require_relative "nba_api/stats/players/passing"
+require_relative "nba_api/stats/players/possessions"
+require_relative "nba_api/stats/players/post_touches"
+require_relative "nba_api/stats/players/pull_up_shots"
+require_relative "nba_api/stats/players/rebounding"
+require_relative "nba_api/stats/players/speed_distance"
 require_relative "nba_api/stats/players/traditional"
 
 module NbaApi
