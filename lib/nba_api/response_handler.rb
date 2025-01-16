@@ -21,6 +21,8 @@ module NbaApi
     end
 
     def insufficient_statistics?(response)
+      return false if response[:home_team][:players].any? { |player| player.key?(:matchups) }
+
       all_players = response[:home_team][:players] + response[:away_team][:players]
       
       all_players.all? do |player|
