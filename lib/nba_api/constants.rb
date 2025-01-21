@@ -3,30 +3,31 @@
 module NbaApi
   module Constants
     RESULT_SETS_ENDPOINTS = %w[leaguegamefinder leaguedashplayerstats leaguedashplayerptshot winprobabilitypbp
-                               leaguedashplayerstats commonteamroster commonplayerinfo franchiseleaders
-                               franchisehistory leaguedashteamstats leaguestandingsv3 teamgamelogs teamdetails
-                               winprobabilitypbp leaguedashptstats].freeze
+                              commonteamroster commonplayerinfo franchiseleadersfranchisehistory leaguedashteamstats
+                              leaguestandingsv3 teamgamelogs teamdetails winprobabilitypbp leaguedashptstats].freeze
     RESULT_AS_ENDPOINTS = %w[boxscoresummaryv3 boxscoresummaryv2 scheduleleaguev2].freeze
     SHOT_LOCATIONS_ENDPOINT = %w[leaguedashplayershotlocations].freeze
     BOXSCORE_STATS_ENDPOINTS = %w[boxscoretraditionalv3 boxscoreadvancedv3 boxscoremiscv3 boxscorescoringv3
                                   boxscoreusagev3 boxscorefourfactorsv3 boxscoreplayertrackv3 boxscorehustlev2
                                   boxscoredefensivev2 boxscorematchupsv3].freeze
     PBP_ENDPOINT = %w[playbyplayv3].freeze
+    
     STATIC_ENDPOINT = "https://data.nba.com"
 
-    UNVERSION = { "boxscoresummaryv3" => :box_score_summary,
-                  "boxscoresummaryv2" => :box_score_summary,
-                  "boxscoretraditionalv3" => :box_score_traditional,
-                  "boxscoreadvancedv3" => :box_score_advanced,
-                  "boxscoremiscv3" => :box_score_misc,
-                  "boxscorescoringv3" => :box_score_scoring,
-                  "boxscoreusagev3" => :box_score_usage,
-                  "boxscorefourfactorsv3" => :box_score_four_factors,
-                  "boxscoreplayertrackv3" => :box_score_player_track,
-                  "boxscorehustlev2" => :box_score_hustle,
-                  "boxscoredefensivev2" => :box_score_defensive,
-                  "boxscorematchupsv3" => :box_score_matchups,
-                  "scheduleleaguev2" => :league_schedule
+    UNVERSION = { 
+      "boxscoresummaryv3" => :box_score_summary,
+      "boxscoresummaryv2" => :box_score_summary,
+      "boxscoretraditionalv3" => :box_score_traditional,
+      "boxscoreadvancedv3" => :box_score_advanced,
+      "boxscoremiscv3" => :box_score_misc,
+      "boxscorescoringv3" => :box_score_scoring,
+      "boxscoreusagev3" => :box_score_usage,
+      "boxscorefourfactorsv3" => :box_score_four_factors,
+      "boxscoreplayertrackv3" => :box_score_player_track,
+      "boxscorehustlev2" => :box_score_hustle,
+      "boxscoredefensivev2" => :box_score_defensive,
+      "boxscorematchupsv3" => :box_score_matchups,
+      "scheduleleaguev2" => :league_schedule
     }.freeze
 
     MAX_QUARTERS = 14
