@@ -4,7 +4,8 @@ module NbaApi
   module Constants
     RESULT_SETS_ENDPOINTS = %w[leaguegamefinder leaguedashplayerstats leaguedashplayerptshot winprobabilitypbp
                               commonteamroster commonplayerinfo franchiseleadersfranchisehistory leaguedashteamstats
-                              leaguestandingsv3 teamgamelogs teamdetails winprobabilitypbp leaguedashptstats].freeze
+                              leaguestandingsv3 teamgamelogs teamdetails winprobabilitypbp leaguedashptstats
+                              leaguedashplayerclutch synergyplaytypes].freeze
     RESULT_AS_ENDPOINTS = %w[boxscoresummaryv3 boxscoresummaryv2 scheduleleaguev2].freeze
     SHOT_LOCATIONS_ENDPOINT = %w[leaguedashplayershotlocations].freeze
     BOXSCORE_STATS_ENDPOINTS = %w[boxscoretraditionalv3 boxscoreadvancedv3 boxscoremiscv3 boxscorescoringv3
