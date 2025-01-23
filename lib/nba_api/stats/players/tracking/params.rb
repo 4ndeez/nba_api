@@ -45,9 +45,12 @@ module NbaApi
           def verify_params(options)
             missing_params = REQUIRED_PARAMS - options.select { |_k, v| v.present? }.keys
 
-            raise ArgumentError, "Missing parameters: #{missing_params.join(", ")}" if missing_params.any?
+            if missing_params.any?
+              raise NbaApi::Errors::InvalidParameterError, "Missing parameters: #{missing_params.join(", ")}"
+            end
+            
             if options[:date].present? && (options[:date_from].present? || options[:date_to].present?)
-              raise ArgumentError, "Use either ONLY :date OR :date_from AND :date_to" 
+              raise NbaApi::Errors::InvalidParameterError, "Use either ONLY :date OR :date_from AND :date_to" 
             end
           end
         end

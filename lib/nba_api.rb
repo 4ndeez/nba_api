@@ -7,6 +7,9 @@ require_relative "nba_api/response_handler"
 require_relative "nba_api/formatter"
 require_relative "nba_api/resource"
 
+# Errors
+require_relative "nba_api/errors/invalid_parameter_error"
+
 # League API
 require_relative "nba_api/league/params"
 require_relative "nba_api/league/schedule"
@@ -100,6 +103,23 @@ require_relative "nba_api/stats/players/tracking/post_touches"
 require_relative "nba_api/stats/players/tracking/pull_up_shots"
 require_relative "nba_api/stats/players/tracking/rebounding"
 require_relative "nba_api/stats/players/tracking/speed_distance"
+
+# Stats/Players/Defense API
+require_relative "nba_api/stats/players/defense/params"
+require_relative "nba_api/stats/players/defense/overall"
+require_relative "nba_api/stats/players/defense/three_pointers"
+require_relative "nba_api/stats/players/defense/two_pointers"
+require_relative "nba_api/stats/players/defense/under_fifteen_foot"
+require_relative "nba_api/stats/players/defense/under_six_foot"
+require_relative "nba_api/stats/players/defense/under_ten_foot"
+
+# Stats/Players/Shooting API
+require_relative "nba_api/stats/players/shooting/params"
+require_relative "nba_api/stats/players/shooting/catch_shoot"
+require_relative "nba_api/stats/players/shooting/general"
+require_relative "nba_api/stats/players/shooting/pull_up"
+require_relative "nba_api/stats/players/shooting/shotclock"
+require_relative "nba_api/stats/players/shooting/under_ten_foot"
 
 module NbaApi
   class Error < StandardError; end

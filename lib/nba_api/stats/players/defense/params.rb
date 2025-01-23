@@ -3,14 +3,13 @@
 module NbaApi
   module Stats
     module Players
-      module General
+      module Defense
         module Params
           extend Resource
           
-          REQUIRED_PARAMS = %i[season].freeze
+          REQUIRED_PARAMS = %i[season category].freeze
           WRAPPED_ENDPOINTS = {
-            "leaguedashptstats" => :league_dash_pt_stats,
-            "leaguedashplayerstats" => :league_dash_player_stats
+            "leaguedashptdefend" => :league_dash_pt_defend
           }.freeze
 
           private
@@ -34,16 +33,15 @@ module NbaApi
 
             {
               Season: options[:season],
+              DefenseCategory: options[:category], # options: Overall, 3 Pointers, 2 Pointers, Less Than 6Ft, Less Than 10Ft, Greater Than 15Ft
               SeasonType: options[:season_type] || "Regular Season",
               LeagueID: options[:league_id] || "00",
               PerMode: options[:per_mode] || "Totals",
-              MeasureType: options[:measure_type] || "Base",
               LastNGames: options[:last_n_games] || 0,
               Month: options[:month] || 0,
               TeamID: options[:team_id] || 0,
               OpponentTeamID: options[:opponent_team_id] || 0,
               Period: options[:period] || 0,
-              PlayerOrTeam: options[:player_or_team] || "Player",
               PtMeasureType: options[:pt_measure_type] || nil,
               PlusMinus: options[:plus_minus] || "N",
               Rank: options[:rank] || "N",
@@ -56,9 +54,9 @@ module NbaApi
 
           def verify_params(options)
             missing_params = REQUIRED_PARAMS - options.select { |_k, v| v.present? }.keys
-
+            
             if missing_params.any?
-              raise NbaApi::Errors::InvalidParameterError, "Missing parameters: #{missing_params.join(", ")}"
+              raise NbaApi::Errors::InvalidParameterError, "Missing parameters: #{missing_params.join(", ")}" 
             end
 
             if options[:date].present? && (options[:date_from].present? || options[:date_to].present?)

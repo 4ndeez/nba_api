@@ -3,14 +3,14 @@
 module NbaApi
   module Stats
     module Players
-      module General
+      module Shooting
         module Params
           extend Resource
           
           REQUIRED_PARAMS = %i[season].freeze
+          RANGE_PARAMS = ["24-22", "22-18 Very Early", "18-15 Early", "15-7 Average", "7-4 Late", "4-0 Very Late"].freeze
           WRAPPED_ENDPOINTS = {
-            "leaguedashptstats" => :league_dash_pt_stats,
-            "leaguedashplayerstats" => :league_dash_player_stats
+            "leaguedashplayerptshot" => :league_dash_pt_shots
           }.freeze
 
           private
@@ -34,16 +34,17 @@ module NbaApi
 
             {
               Season: options[:season],
+              GeneralRange: options[:category] || nil, # options: Catch and Shoot, Pullups, Less Than 10 Ft
+              CloseDefDistRange: options[:defender_range] || nil, # options: 0-2 Feet - Very Tight, 2-4 Feet - Tight, 4-6 Feet - Open, 6+ Feet - Wide Open
+              ShotClockRange: options[:shotclock_range] || nil, # options: 24-22, 22-18 Very Early, 18-15 Early, 15-7 Average, 7-4 Late, 4-0 Very Late
               SeasonType: options[:season_type] || "Regular Season",
               LeagueID: options[:league_id] || "00",
               PerMode: options[:per_mode] || "Totals",
-              MeasureType: options[:measure_type] || "Base",
               LastNGames: options[:last_n_games] || 0,
               Month: options[:month] || 0,
               TeamID: options[:team_id] || 0,
               OpponentTeamID: options[:opponent_team_id] || 0,
               Period: options[:period] || 0,
-              PlayerOrTeam: options[:player_or_team] || "Player",
               PtMeasureType: options[:pt_measure_type] || nil,
               PlusMinus: options[:plus_minus] || "N",
               Rank: options[:rank] || "N",
@@ -62,7 +63,11 @@ module NbaApi
             end
 
             if options[:date].present? && (options[:date_from].present? || options[:date_to].present?)
-              raise NbaApi::Errors::InvalidParameterError, "Use either ONLY :date OR :date_from AND :date_to" 
+              raise NbaApi::Errors::InvalidParameterError, "Use either ONLY :date OR :date_from AND :date_to"
+            end
+
+            if options[:shotclock_range].present? && RANGE_PARAMS.exclude?(options[:shotclock_range])
+              raise NbaApi::Errors::InvalidParameterError, "Invalid shotclock range. Valid options: #{RANGE_PARAMS.join(", ")}"
             end
           end
         end
