@@ -51,7 +51,7 @@ module NbaApi
         result_set = response[:result_sets]
         headers = result_set[:headers]
         shot_categories = headers[0][:column_names]
-        column_names = headers[1][:column_names]
+        column_names = headers[1][:column_names].map(&:underscore).map(&:to_sym)
         rows = result_set[:row_set]
 
         result = rows.map do |row|
@@ -66,7 +66,7 @@ module NbaApi
               }
             }
           end.reduce({}, :merge)
-          player_data.merge(shot_data)
+          player_data.merge(shots: shot_data)
         end
 
         unwrap(result)
