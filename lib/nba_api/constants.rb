@@ -23,6 +23,10 @@ module NbaApi
       "4-0"   => "4-0 Very Late"
     }.freeze
 
+    SHOT_DISTANCE_RANGE_PARAMS = {
+      ">=10.0" => ">=10.0"
+    }.freeze
+
     DRIBBLE_RANGE_PARAMS = {
       "0"   => "0 Dribbles",
       "1"   => "1 Dribble",
