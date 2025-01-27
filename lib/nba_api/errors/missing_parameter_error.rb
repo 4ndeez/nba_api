@@ -4,7 +4,7 @@ module NbaApi
       def initialize(parameters)
         @parameters = parameters
         
-        super(@message)
+        super(formed_message)
       end
 
       private
@@ -14,7 +14,7 @@ module NbaApi
       end
 
       def formed_message
-        "Missing pararameters: #{strigified_parameters}"
+        "Missing pararameters: #{stringified_parameters}"
       end
     end
   end
