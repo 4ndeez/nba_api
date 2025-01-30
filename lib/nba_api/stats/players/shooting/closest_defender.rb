@@ -4,7 +4,7 @@ module NbaApi
   module Stats
     module Players
       module Shooting
-        module Shotclock
+        module ClosestDefender
           extend Resource
           extend Params
 

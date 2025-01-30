@@ -2,18 +2,19 @@
 
 module NbaApi
   module Stats
-    module Players
-      module Shooting
-        module Shotclock
+    module Teams
+      module Tracking
+        module PaintTouches
           extend Resource
           extend Params
 
           module_function
 
-          ENDPOINT = "leaguedashplayerptshot"
+          ENDPOINT = "leaguedashptstats"
+          PT_MEASURE_TYPE = "PaintTouch"
 
           def call(options = {})
-            params = build_params(options)
+            params = build_params(options.merge(pt_measure_type: PT_MEASURE_TYPE))
             response = get(ENDPOINT, params)
           end
         end

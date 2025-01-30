@@ -2,18 +2,18 @@
 
 module NbaApi
   module Stats
-    module Teams
-      module Scoring
+    module Lineups
+      module Traditional
         extend Resource
         extend Params
 
         module_function
 
-        ENDPOINT = "leaguedashteamstats"
-        TYPE = { measure_type: "Scoring" }.freeze
+        ENDPOINT = "leaguedashlineups"
+        MEASURE_TYPE = "Base"
 
         def call(options = {})
-          params = build_params(options.merge(TYPE))
+          params = build_params(options.merge(measure_type: MEASURE_TYPE))
           get(ENDPOINT, params)
         end
       end

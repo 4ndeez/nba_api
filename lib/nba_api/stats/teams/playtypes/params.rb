@@ -2,15 +2,14 @@
 
 module NbaApi
   module Stats
-    module Players
-      module Tracking
+    module Teams
+      module Playtypes
         module Params
           extend Resource
           
-          REQUIRED_PARAMS   = %i[season].freeze
+          REQUIRED_PARAMS = %i[season play_type type_grouping].freeze
           WRAPPED_ENDPOINTS = {
-            "leaguedashptstats"       => :league_dash_pt_stats,
-            "leaguehustlestatsplayer" => :hustle_stats_player
+            "synergyplaytypes" => :synergy_play_type
           }.freeze
 
           private
@@ -33,24 +32,13 @@ module NbaApi
             verify_params(options)
 
             {
-              Season: options[:season],
+              SeasonYear: options[:season],
+              PlayType: options[:play_type], # options: Transition, Isolation, PRBallHandler, PRRollMan, PostUp, SpotUp, HandOff, Cut, OffScreen, Putbacks, PlayTypeMisc
+              TypeGrouping: options[:type_grouping], # options: offensive, defensive
               SeasonType: options[:season_type] || "Regular Season",
               LeagueID: options[:league_id] || "00",
               PerMode: options[:per_mode] || "Totals",
-              MeasureType: options[:measure_type] || "Base",
-              LastNGames: options[:last_n_games] || 0,
-              Month: options[:month] || 0,
-              TeamID: options[:team_id] || 0,
-              OpponentTeamID: options[:opponent_team_id] || 0,
-              Period: options[:period] || 0,
-              PlayerOrTeam: options[:player_or_team] || "Player",
-              PtMeasureType: options[:pt_measure_type] || nil,
-              PlusMinus: options[:plus_minus] || "N",
-              Rank: options[:rank] || "N",
-              PaceAdjust: options[:pace_adjust] || "N",
-
-              DateFrom: options[:date_from] || options[:date] || nil,
-              DateTo: options[:date_to] || options[:date] || nil,
+              PlayerOrTeam: options[:player_or_team] || "T"
             }
           end
 

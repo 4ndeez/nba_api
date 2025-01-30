@@ -2,14 +2,14 @@
 
 module NbaApi
   module Stats
-    module Players
+    module Teams
       module Shooting
         module Params
           extend Resource
           include Constants
           
           REQUIRED_PARAMS   = %i[season].freeze
-          WRAPPED_ENDPOINTS = { "leaguedashplayerptshot" => :league_dash_pt_shots }.freeze
+          WRAPPED_ENDPOINTS = { "leaguedashteamptshot" => :league_dash_pt_shots }.freeze
 
           private
 

@@ -2,15 +2,15 @@
 
 module NbaApi
   module Stats
-    module Players
+    module Teams
       module Tracking
         module Params
           extend Resource
           
           REQUIRED_PARAMS   = %i[season].freeze
           WRAPPED_ENDPOINTS = {
-            "leaguedashptstats"       => :league_dash_pt_stats,
-            "leaguehustlestatsplayer" => :hustle_stats_player
+            "synergyplaytypes"      => :synergy_play_type,
+            "leaguehustlestatsteam" => :hustle_stats_team
           }.freeze
 
           private
@@ -43,7 +43,7 @@ module NbaApi
               TeamID: options[:team_id] || 0,
               OpponentTeamID: options[:opponent_team_id] || 0,
               Period: options[:period] || 0,
-              PlayerOrTeam: options[:player_or_team] || "Player",
+              PlayerOrTeam: options[:player_or_team] || "Team",
               PtMeasureType: options[:pt_measure_type] || nil,
               PlusMinus: options[:plus_minus] || "N",
               Rank: options[:rank] || "N",

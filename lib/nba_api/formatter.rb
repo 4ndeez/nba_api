@@ -50,14 +50,20 @@ module NbaApi
       def shot_locations_process(response)
         result_set = response[:result_sets]
         headers = result_set[:headers]
-        shot_categories = headers[0][:column_names]
-        column_names = headers[1][:column_names].map(&:underscore).map(&:to_sym)
+        
+        shot_categories = headers.find { |h| h[:name] == 'SHOT_CATEGORY' }[:column_names]
+        columns_to_skip = headers.find { |h| h[:name] == 'SHOT_CATEGORY' }[:columns_to_skip]
+
+        column_names = headers.find { |h| h[:name] == 'columns' }[:column_names]
+        column_names = column_names.map(&:underscore).map(&:to_sym)
+
         rows = result_set[:row_set]
 
         result = rows.map do |row|
-          player_data = column_names.zip(row).to_h
+          player_or_team_data = column_names.first(columns_to_skip).zip(row.first(columns_to_skip)).to_h
+
           shot_data = shot_categories.each_with_index.map do |category, index|
-            start_index = 6 + index * 3
+            start_index = columns_to_skip + index * 3
             {
               category => {
                 fgm: row[start_index],
@@ -66,7 +72,8 @@ module NbaApi
               }
             }
           end.reduce({}, :merge)
-          player_data.merge(shots: shot_data)
+
+          player_or_team_data.merge(shots: shot_data)
         end
 
         unwrap(result)

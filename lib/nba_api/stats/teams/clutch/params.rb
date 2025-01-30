@@ -2,15 +2,14 @@
 
 module NbaApi
   module Stats
-    module Players
-      module Tracking
+    module Teams
+      module Clutch
         module Params
           extend Resource
           
-          REQUIRED_PARAMS   = %i[season].freeze
+          REQUIRED_PARAMS = %i[season].freeze
           WRAPPED_ENDPOINTS = {
-            "leaguedashptstats"       => :league_dash_pt_stats,
-            "leaguehustlestatsplayer" => :hustle_stats_player
+            "leaguedashteamclutch" => :league_dash_team_clutch
           }.freeze
 
           private
@@ -34,6 +33,9 @@ module NbaApi
 
             {
               Season: options[:season],
+              AheadBehind: options[:ahead_behind] || "Ahead or Behind", # options are: Behind or Tied, Ahead or Tied
+              ClutchTime: options[:clutch_time] || "Last 5 Minutes", # options are: Last N(5,4,3,2,1) minutes
+              PointDiff: options[:point_diff] || 5, # options are 5, 4, 3, 2, 1
               SeasonType: options[:season_type] || "Regular Season",
               LeagueID: options[:league_id] || "00",
               PerMode: options[:per_mode] || "Totals",
@@ -43,7 +45,7 @@ module NbaApi
               TeamID: options[:team_id] || 0,
               OpponentTeamID: options[:opponent_team_id] || 0,
               Period: options[:period] || 0,
-              PlayerOrTeam: options[:player_or_team] || "Player",
+              PlayerOrTeam: options[:player_or_team] || "Team",
               PtMeasureType: options[:pt_measure_type] || nil,
               PlusMinus: options[:plus_minus] || "N",
               Rank: options[:rank] || "N",
@@ -58,7 +60,7 @@ module NbaApi
             missing_params = REQUIRED_PARAMS - options.select { |_k, v| v.present? }.keys
 
             if missing_params.any?
-              raise NbaApi::Errors::InvalidParameterError, "Missing parameters: #{missing_params.join(", ")}"
+              raise NbaApi::Errors::InvalidParameterError, "Missing parameters: #{missing_params.join(", ")}" 
             end
             
             if options[:date].present? && (options[:date_from].present? || options[:date_to].present?)

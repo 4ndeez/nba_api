@@ -2,7 +2,7 @@
 
 module NbaApi
   module Stats
-    module Players
+    module Teams
       module Shooting
         module Shotclock
           extend Resource
@@ -10,7 +10,7 @@ module NbaApi
 
           module_function
 
-          ENDPOINT = "leaguedashplayerptshot"
+          ENDPOINT = "leaguedashteamptshot"
 
           def call(options = {})
             params = build_params(options)
