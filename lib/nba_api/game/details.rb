@@ -2,7 +2,7 @@
 
 module NbaApi
   module Game
-    module Summary
+    module Details
       extend Resource
       extend Params
 

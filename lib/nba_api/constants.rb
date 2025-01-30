@@ -2,24 +2,70 @@
 
 module NbaApi
   module Constants
-    RESULT_SETS_ENDPOINTS = %w[leaguegamefinder leaguedashplayerstats leaguedashplayerptshot winprobabilitypbp].freeze
-    RESULT_AS_ENDPOINTS = %w[boxscoresummaryv3 boxscoresummaryv2 boxscoretraditionalv3 boxscoreadvancedv3 boxscoremiscv3
-                             boxscorescoringv3 boxscoreusagev3 boxscorefourfactorsv3 boxscoreplayertrackv3
-                             boxscorehustlev2 boxscoredefensivev2 boxscorematchupsv3].freeze
-    SHOT_LOCATIONS_ENDPOINT = %w[leaguedashplayershotlocations].freeze
+    RESULT_SETS_ENDPOINTS    = %w[leaguegamefinder leaguedashplayerstats leaguedashplayerptshot winprobabilitypbp
+                                  commonteamroster commonplayerinfo franchiseleadersfranchisehistory leaguedashteamstats
+                                  leaguestandingsv3 teamgamelogs teamdetails winprobabilitypbp leaguedashptstats
+                                  leaguedashplayerclutch synergyplaytypes leaguedashptdefend leaguehustlestatsplayer
+                                  leaguedashteamclutch leaguehustlestatsteam leaguedashteamptshot leaguedashlineups].freeze
+    RESULT_AS_ENDPOINTS      = %w[boxscoresummaryv3 boxscoresummaryv2 scheduleleaguev2].freeze
+    SHOT_LOCATIONS_ENDPOINT  = %w[leaguedashplayershotlocations leaguedashteamshotlocations].freeze
+    BOXSCORE_STATS_ENDPOINTS = %w[boxscoretraditionalv3 boxscoreadvancedv3 boxscoremiscv3 boxscorescoringv3
+                                  boxscoreusagev3 boxscorefourfactorsv3 boxscoreplayertrackv3 boxscorehustlev2
+                                  boxscoredefensivev2 boxscorematchupsv3].freeze
+    PBP_ENDPOINT             = %w[playbyplayv3].freeze
+    STATIC_ENDPOINT          = "https://data.nba.com"
+    
+    SHOTCLOCK_RANGE_PARAMS = {
+      "24-22" => "24-22",
+      "22-18" => "22-18 Very Early",
+      "18-15" => "18-15 Early",
+      "15-7"  => "15-7 Average",
+      "7-4"   => "7-4 Late",
+      "4-0"   => "4-0 Very Late"
+    }.freeze
 
-    UNVERSION = { "boxscoresummaryv3" => :box_score_summary,
-                  "boxscoresummaryv2" => :box_score_summary,
-                  "boxscoretraditionalv3" => :box_score_traditional,
-                  "boxscoreadvancedv3" => :box_score_advanced,
-                  "boxscoremiscv3" => :box_score_misc,
-                  "boxscorescoringv3" => :box_score_scoring,
-                  "boxscoreusagev3" => :box_score_usage,
-                  "boxscorefourfactorsv3" => :box_score_four_factors,
-                  "boxscoreplayertrackv3" => :box_score_player_track,
-                  "boxscorehustlev2" => :box_score_hustle,
-                  "boxscoredefensivev2" => :box_score_defensive,
-                  "boxscorematchupsv3" => :box_score_matchups }.freeze
+    SHOT_DISTANCE_RANGE_PARAMS = {
+      ">=10.0" => ">=10.0"
+    }.freeze
+
+    DRIBBLE_RANGE_PARAMS = {
+      "0"   => "0 Dribbles",
+      "1"   => "1 Dribble",
+      "2"   => "2 Dribbles",
+      "3-6" => "3-6 Dribbles",
+      "7+"  => "7+ Dribbles"
+    }.freeze
+
+    TOUCH_TIME_RANGE_PARAMS = {
+      "<2"  => "Touch < 2 Seconds",
+      "2-6" => "Touch 2-6 Seconds",
+      "6+"  => "Touch 6+ Seconds"
+    }.freeze
+
+    CLOSEST_DEFENDER_RANGE_PARAMS = {
+      "0-2" => "0-2 Feet - Very Tight",
+      "2-4" => "2-4 Feet - Tight",
+      "4-6" => "4-6 Feet - Open",
+      "6+"  => "6+ Feet - Wide Open"
+    }.freeze
+
+    MAX_QUARTERS = 14
+
+    UNVERSION = { 
+      "boxscoresummaryv3"     => :box_score_summary,
+      "boxscoresummaryv2"     => :box_score_summary,
+      "boxscoretraditionalv3" => :box_score_traditional,
+      "boxscoreadvancedv3"    => :box_score_advanced,
+      "boxscoremiscv3"        => :box_score_misc,
+      "boxscorescoringv3"     => :box_score_scoring,
+      "boxscoreusagev3"       => :box_score_usage,
+      "boxscorefourfactorsv3" => :box_score_four_factors,
+      "boxscoreplayertrackv3" => :box_score_player_track,
+      "boxscorehustlev2"      => :box_score_hustle,
+      "boxscoredefensivev2"   => :box_score_defensive,
+      "boxscorematchupsv3"    => :box_score_matchups,
+      "scheduleleaguev2"      => :league_schedule
+    }.freeze
 
     TEAMS = [
       { abbreviation: "ATL", id: 1_610_612_737, name: "Atlanta Hawks" },

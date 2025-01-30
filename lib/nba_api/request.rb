@@ -12,6 +12,7 @@ module NbaApi
 
     def get(endpoint, params = {}, retries = 0, timeout_time = 3)
       request_url = url(endpoint)
+      timeout_guard
       response = HTTParty.get(request_url, query: params, headers: default_headers)
 
       if response.code == SUCCESS_CODE
@@ -21,7 +22,15 @@ module NbaApi
       end
     end
 
+    def get_static(endpoint, params = {})
+      HTTParty.get(endpoint, query: params)
+    end
+
     private
+
+    def timeout_guard(timeout_time = 1.5)
+      sleep(rand(1..timeout_time))
+    end
 
     def url(endpoint)
       "#{BASE_URL}/#{endpoint}"

@@ -7,7 +7,6 @@ module NbaApi
       extend Params
 
       ENDPOINT = "playbyplayv3"
-      MAX_QUARTERS = 14
 
       class << self
         def call(options = {})
@@ -28,27 +27,46 @@ module NbaApi
             EndPeriod: options[:end_period] || MAX_QUARTERS
           }
         end
-
+        
         def collect_shots(data)
-          shots = Hash.new { |h, k| h[k] = [] }
-          data.each do |action|
-            next unless action[:is_field_goal] == 1
-
-            shots[{ player_name: action[:player_name_i], player_id: action[:person_id], team_id: action[:team_id] }] << attributes(action)
+          data.select! { |action| action[:is_field_goal] == 1 }
+          result = data.group_by { |hash| hash[:player_name] }.map do |player_name, actions|
+            {
+              player_name: player_name,
+              player_id: actions.first[:person_id],
+              team_id: actions.first[:team_id],
+              shots: actions.map do |action|
+                shot_data = attributes(action)
+                type_and_subtype = split_type_and_subtype(action[:sub_type])
+                shot_data.merge(type_and_subtype)
+              end
+            }
           end
-          shots
         end
 
         def attributes(entry)
-          { type: entry[:sub_type],
-            value: entry[:shot_value],
-            result: entry[:shot_result],
-            distance: entry[:shot_distance],
-            shot_value: entry[:shot_value],
+          {
+            action_id: entry[:action_id],
             action_type: entry[:action_type],
+            type: entry[:sub_type],
+            shot_result: entry[:shot_result],
+            shot_value: entry[:shot_value],
+            shot_distance: entry[:shot_distance],
+            period: entry[:period],
             x: entry[:x_legacy],
-            y: entry[:y_legacy],
-            period: entry[:period] }
+            y: entry[:y_legacy]
+          }
+        end
+
+        def split_type_and_subtype(shot_description)
+          not_shots = ["Dunk", "Layup", "Fadeaway"]
+
+          shot_array = shot_description.split
+          if not_shots.include?(shot_array[-2])
+            { type: shot_array[..-2].map(&:capitalize).join(" "), subtype: shot_array[-2] }
+          else
+            { type: shot_array[..-1].map(&:capitalize).join(" "), subtype: shot_array[-2..].map(&:capitalize).join(" ") }
+          end
         end
       end
     end
