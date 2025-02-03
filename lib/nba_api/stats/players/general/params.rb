@@ -10,9 +10,10 @@ module NbaApi
           REQUIRED_PARAMS = %i[season].freeze
           WRAPPED_ENDPOINTS = {
             "leaguedashptstats" => :league_dash_pt_stats,
-            "leaguedashplayerstats" => :league_dash_player_stats
+            "leaguedashplayerstats" => :league_dash_player_stats,
+            "leagueplayerondetails" => :players_on_court_league_player_details,
           }.freeze
-
+          
           private
 
           def get(endpoint, params)

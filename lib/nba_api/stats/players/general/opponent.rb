@@ -10,7 +10,7 @@ module NbaApi
 
           module_function
 
-          ENDPOINT = "leaguedashplayerstats"
+          ENDPOINT = "leagueplayerondetails"
           MEASURE_TYPE = "Opponent"
 
           def call(options = {})

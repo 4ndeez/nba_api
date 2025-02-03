@@ -6,7 +6,8 @@ module NbaApi
                                   commonteamroster commonplayerinfo franchiseleadersfranchisehistory leaguedashteamstats
                                   leaguestandingsv3 teamgamelogs teamdetails winprobabilitypbp leaguedashptstats
                                   leaguedashplayerclutch synergyplaytypes leaguedashptdefend leaguehustlestatsplayer
-                                  leaguedashteamclutch leaguehustlestatsteam leaguedashteamptshot leaguedashlineups].freeze
+                                  leaguedashteamclutch leaguehustlestatsteam leaguedashteamptshot leaguedashlineups
+                                  leagueplayerondetails].freeze
     RESULT_AS_ENDPOINTS      = %w[boxscoresummaryv3 boxscoresummaryv2 scheduleleaguev2].freeze
     SHOT_LOCATIONS_ENDPOINT  = %w[leaguedashplayershotlocations leaguedashteamshotlocations].freeze
     BOXSCORE_STATS_ENDPOINTS = %w[boxscoretraditionalv3 boxscoreadvancedv3 boxscoremiscv3 boxscorescoringv3
