@@ -146,7 +146,7 @@ require_relative "nba_api/stats/players/defense/params"
 require_relative "nba_api/stats/players/defense/overall"
 require_relative "nba_api/stats/players/defense/three_pointers"
 require_relative "nba_api/stats/players/defense/two_pointers"
-require_relative "nba_api/stats/players/defense/under_fifteen_foot"
+require_relative "nba_api/stats/players/defense/over_fifteen_foot"
 require_relative "nba_api/stats/players/defense/under_six_foot"
 require_relative "nba_api/stats/players/defense/under_ten_foot"
 

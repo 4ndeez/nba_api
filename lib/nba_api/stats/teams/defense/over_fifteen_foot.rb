@@ -4,14 +4,14 @@ module NbaApi
   module Stats
     module Teams
       module Defense
-        module UnderFifteenFoot
+        module OverFifteenFoot
           extend Resource
           extend Params
 
           module_function
 
           ENDPOINT = "leaguedashptteamdefend"
-          CATEGORY = "Less Than 15Ft"
+          CATEGORY = "Greater Than 15Ft"
 
           def call(options = {})
             params = build_params(options.merge(category: CATEGORY))
