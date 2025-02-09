@@ -70,7 +70,7 @@ require_relative "nba_api/stats/teams/defense/params"
 require_relative "nba_api/stats/teams/defense/overall"
 require_relative "nba_api/stats/teams/defense/three_pointers"
 require_relative "nba_api/stats/teams/defense/two_pointers"
-require_relative "nba_api/stats/teams/defense/under_fifteen_foot"
+require_relative "nba_api/stats/teams/defense/over_fifteen_foot"
 require_relative "nba_api/stats/teams/defense/under_six_foot"
 require_relative "nba_api/stats/teams/defense/under_ten_foot"
 
