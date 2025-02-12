@@ -6,8 +6,25 @@ module NbaApi
       module General
         module Params
           REQUIRED_PARAMS = %i[season].freeze
-
+          WRAPPED_ENDPOINTS = {
+            "leaguedashteamstats" => :league_dash_team_stats
+          }.freeze
+          
           private
+
+          def get(endpoint, params)
+            response = super
+            unwrap_response(endpoint, response)
+          end
+
+          def unwrap_response(endpoint, response)
+            if WRAPPED_ENDPOINTS.keys.include?(endpoint)
+              response_key = WRAPPED_ENDPOINTS[endpoint]
+              response[response_key]
+            else
+              response
+            end
+          end
 
           def build_params(options)
             verify_params(options)
