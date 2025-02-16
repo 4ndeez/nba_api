@@ -60,10 +60,10 @@ require_relative "nba_api/stats/lineups/traditional"
 # Stats/Teams/Clutch API
 require_relative "nba_api/stats/teams/clutch/params"
 require_relative "nba_api/stats/teams/clutch/advanced"
+require_relative "nba_api/stats/teams/clutch/four_factors"
 require_relative "nba_api/stats/teams/clutch/misc"
 require_relative "nba_api/stats/teams/clutch/scoring"
 require_relative "nba_api/stats/teams/clutch/traditional"
-require_relative "nba_api/stats/teams/clutch/usage"
 
 # Stats/Teams/Defense API
 require_relative "nba_api/stats/teams/defense/params"

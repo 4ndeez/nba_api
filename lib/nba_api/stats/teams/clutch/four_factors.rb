@@ -4,7 +4,7 @@ module NbaApi
   module Stats
     module Teams
       module Clutch
-        module Usage
+        module FourFactors
 
           extend Resource
           extend Params
@@ -12,7 +12,7 @@ module NbaApi
           module_function
 
           ENDPOINT = "leaguedashteamclutch"
-          MEASURE_TYPE = "Usage"
+          MEASURE_TYPE = "Four Factors"
 
           def call(options = {})
             params = build_params(options.merge(measure_type: MEASURE_TYPE))
